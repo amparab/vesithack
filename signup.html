@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    
+</head>
+
+<body class="grey lighten-3">
+
+    <!--Main Navigation-->
+    <header>
+
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container-fluid">
+
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">
+                    <strong class="blue-text">Asset Management System <?php echo ' whats up'; ?></strong>
+                </a>
+
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link waves-effect" href="#">Log Out
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons">
+                        <li class="nav-item active">
+                            <a class="nav-link waves-effect" href="#">Log Out
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+        <!-- Sidebar -->
+        <div class="sidebar-fixed position-fixed">
+
+            <a class=" waves-effect">
+                <img src="https://i0.wp.com/vesitadmissions.ves.ac.in/wp-content/uploads/2017/03/cropped-favicon.png?fit=240%2C240&ssl=1" class="img-fluid" alt="">
+            </a>
+
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action waves-effect">
+                    <i class="fa fa-user mr-3"></i>Profile</a>
+                <a href="#" class="list-group-item list-group-item-action waves-effect">
+                    <i class="fa fa-table mr-3"></i>Request Assets</a>
+                <a href="#" class="list-group-item list-group-item-action waves-effect">
+                    <i class="fa fa-map mr-3"></i>Track Asset Request</a>
+                <a href="#" class="list-group-item list-group-item-action waves-effect">
+                    <i class="fa fa-money mr-3"></i>Issued Assets</a>
+            </div>
+
+        </div>
+        <!-- Sidebar -->
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main class="pt-5 mx-lg-5">
+        <div class="container-fluid mt-5">
+            <!-- Heading -->
+            <div class="card mb-4 wow fadeIn">
+
+                <!--Card content-->
+                <div class="card-body d-flex justify-content-center">
+				
+                    <!-- Default form login -->
+					<form class="text-center border border-light p-5" action="signup.php" method="post">
+
+						<p class="h4 mb-4">Sign in</p>
+						<input type="text" name="name" class="form-control mb-4" placeholder="Name">
+						<!-- Email -->
+						<input type="email" name="email" class="form-control mb-4" placeholder="E-mail">
+						<input type="text" name="contact" class="form-control mb-4" placeholder="Contact No.">
+						<!-- Password -->
+						<input type="password" name="password" class="form-control mb-4" placeholder="Password">
+						
+						<!-- Basic dropdown -->
+						<div class="btn-group">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Designation</button>
+
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">Professor</a>
+								<a class="dropdown-item" href="#">Lab Incharge</a>
+								<a class="dropdown-item" href="#">Student</a>
+								<a class="dropdown-item" href="#">Purchase Department</a>
+							</div>
+						</div>
+
+						<!-- Sign in button -->
+						<button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+
+						<!-- Register -->
+						<p>Not a member?
+							<a href="">Register</a>
+						</p>
+
+
+					</form>
+<!-- Default form login -->
+
+                </div>
+
+            </div>
+            <!-- Heading -->
+
+
+            
+		
+        </div>
+    </main>
+    <!--Main layout-->
+<?php
+require 'connect.inc.php';
+echo "name";
+if(isset($_POST['name'])&&isset($_POST['contact'])&&isset($_POST['email']))
+{
+	$name=$_POST['name'];
+	$email=$_POST['email'];
+	$contact=$_POST['contact'];
+	echo "amruta";
+	if(!empty($name)&&!empty($email)&&!empty($contact))
+	{	
+			$email_query="SELECT `email` FROM `stakeholders` WHERE `email`='$email'";
+			
+			if($email_query_run=mysqli_query($connect,$email_query))
+			{
+				while($row = mysqli_fetch_assoc($email_query_run)) 
+							{
+							   $emailindb=$row['email'];
+							}
+				if($email==$emailindb)
+				{
+					echo "<div class='message'><br>Email already registered</div></div></div></div>";
+				}
+				else
+				{
+					$signup_query = "INSERT INTO stakeholders (`name`,`email`,`contact`) VALUES ($name,$email,$contact)";
+					if(!mysqli_query($connect,$signup_query))
+					{
+						//echo 'not inseted';
+					}
+					else
+					{
+					//echo 'inserted';
+					/*session_start();
+					ob_start();
+					$_SESSION['user_id']=$email;
+					$_SESSION['name']=$firstname;
+					$_SESSION['email']=$email;*/
+					
+					//Not be written
+					/*echo 'session set';
+					echo $user_id;*/
+					//header('Location:loggedin_inc.php');
+					
+					
+					/*if(isset ($_SESSION['user_id'])&& !empty($_SESSION['user_id']) && isset ($_SESSION['name'])&& !empty($_SESSION['name'])&& isset ($_SESSION['email'])&& !empty($_SESSION['email']))
+					{
+					header('Location:login.php');
+					}
+					else
+					{
+					echo 'Not logged in';
+					}*/
+					}
+				}
+				
+			}
+			else
+			{
+				echo 'query not run';
+			}
+		
+		
+		
+	}
+	else
+	{
+		echo "<div class='message'><br>Fill all fields.</div></div></div></div>";
+	}
+	
+}
+else
+{
+	echo 'no';
+}
+	
+//header("refresh:0;url=signuptemp.php");	
+
+
+?>
+
+</body>
+
+</html>
